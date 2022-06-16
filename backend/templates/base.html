@@ -2,30 +2,81 @@
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="#" />
 
-  <!-- Webpack rendered CSS -->
-  {% render_bundle 'main' 'css' %}
-</head>
+    {% comment %} JQuery CDN {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-<body>
-  {% include 'includes/sentry_init.html' %}
+    {% comment %} Webpack rendered CSS {% endcomment %}
+    {% render_bundle 'main' 'css' %}
+  </head>
 
-  <!-- Body Content -->
-  {% block body %}{% endblock %}
+  <body>
+    {% include 'includes/sentry_init.html' %}
 
-  <!-- django-js-reverse -->
-  <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
+    {% comment %} Body Content {% endcomment %}
+    {% block body %}{% endblock %}
 
-  <!-- Webpack rendered Javascript -->
-  {% render_bundle 'main' 'js' 'DEFAULT' %}
-  {% block scripts %}{% endblock %}
-</body>
+    <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
+    {% comment %} <script type="text/javascript" src="common/movies/ajaxsearch.js"></script> {% endcomment %}
+
+
+
+    <script type="text/javascript">
+      const user_input = $("#user-input")
+      const search_icon = $('#search-icon')
+      const artists_div = $('#replaceable-content')
+      const endpoint = 'movies/by-title/'
+      const delay_by_in_ms = 700
+      let scheduled_function = false
+
+      // Can be used anywhere we need to issue an AJAX request to search for data.
+      // All that's needed is to define an element like: <form><input id="user-input"></input></form>
+
+      let ajax_call = function (endpoint, request_parameters) {
+        $.getJSON(endpoint, request_parameters)
+          .done(response => {
+            // fade out the artists_div, then:
+            artists_div.fadeTo('slow', 0).promise().then(() => {
+              // replace the HTML contents
+              artists_div.html(response['html_from_view'])
+              // fade-in the div with new contents
+              artists_div.fadeTo('slow', 1)
+              // stop animating search icon
+              search_icon.removeClass('blink')
+            })
+          })
+      }
+
+
+      user_input.on('keyup', function () {
+        const request_parameters = {
+          q: $(this).val() // value of user_input: the HTML element with ID user-input
+        }
+
+        // start animating the search icon with the CSS class
+        search_icon.addClass('blink')
+
+        // if scheduled_function is NOT false, cancel the execution of the function
+        if (scheduled_function) {
+          clearTimeout(scheduled_function)
+        }
+
+        // setTimeout returns the ID of the function to be executed
+        scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
+      })
+    </script>
+
+
+
+    {% comment %} Webpack rendered Javascript (https://webpack.js.org/) {% endcomment %}
+    {% render_bundle 'main' 'js' 'DEFAULT' %} {% block scripts %}{% endblock %}
+  </body>
 </html>

@@ -1,0 +1,14 @@
+{% comment %} Lists the results of a search on movies with minimal data (ie for navbar search). {% endcomment %}
+
+<!-- TODO: link to each movie's details page. -->
+<!-- TODO: use the smaller image -->
+{% if movies_min_by_title %}
+  <ul>
+  {% for movie in movies_min_by_title %}
+    <img style="max-height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
+    <li>{{ movie.title }} ({{movie.releaseDate}})</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No results found.</p>
+{% endif %}

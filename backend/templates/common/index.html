@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-
+{% comment %} Common content that should be on all pages {% endcomment %}
 {% block body %}
-  <h1>Django React Boilerplate Example App</h1>
 
-  <p>The setup of the Django React Boilerplate Example App was successful.</p>
+    <!-- TODO: add header -->
+    {% include 'common/movies/movie_list_min.html' %}
 
-  <h2>React Example App</h2>
-  <p>Here is an example of a React app included in the Django framework:</p>
+    {% block content %} {% endblock %}
 
-  <div id="react-app"></div>
+    <!-- TODO: add footer -->
+
 {% endblock %}

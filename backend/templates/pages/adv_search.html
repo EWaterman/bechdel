@@ -1,0 +1,26 @@
+{% extends '../common/index.html' %}
+
+{% comment %} The Advanced Search page for filtering movies. {% endcomment %}
+{% block content %}
+
+<h1>Advanced Search</h1>
+<!-- FORM/FILTER CRIT -->
+<form action="{% url 'common:search' %}" method="get">
+  <input name="title" type="text" placeholder="Search for a movie..." />
+</form>
+
+{% comment %} on keydown, reload data {% endcomment %}
+
+{% for movie in object_list %}
+<div class="listed-movie">
+  <img style="max-height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
+  <div class="listed-movie-details">
+    {{movie.title}}, {{movie.releaseDate}}, {{movie.genre}}, {{movie.gross}},
+    {{movie.bechdelResult}}
+  </div>
+</div>
+{% endfor %}
+
+<!-- FILTERED MOVIES -->
+{% comment %} {% include 'common/movies/movie_list.html' %} {% endblock %} {% endcomment %}
+{% endblock %}

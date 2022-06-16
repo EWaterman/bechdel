@@ -1,0 +1,42 @@
+{% extends '../common/index.html' %}
+
+{% comment %} The Homepage {% endcomment %}
+{% block content %}
+<h1>Bechdel Test (Unofficial)</h1>
+
+<p>
+  A webapp designed to show whether or not a movie passes the
+  <a href="https://en.wikipedia.org/wiki/Bechdel_test">Bechdel Test</a>.
+</p>
+
+<p>In short, a movie passes the Bechdel Test if:</p>
+
+<ol>
+  <li>It has at least two named women in it</li>
+  <li>Who talk to each other</li>
+  <li>About something other than a man</li>
+</ol>
+
+<h5>btn for advanced search</h5>
+<h5>btn for more info</h5>
+<h5>btn for charities to support</h5>
+
+<h2>GRAPH SECTION</h2>
+
+{% comment %} https://www.emgoto.com/react-search-bar/ add this here AND in header {% endcomment %}
+
+{% comment %}
+<h3>REACT APP START</h3>
+{% endcomment %} {% comment %}
+<div id="react-app"></div>
+{% endcomment %} {% comment %}
+<h3>REACT APP END</h3>
+{% endcomment %}
+
+<p>
+  Initial data sourced from <a href="https://bechdeltest.com/">bechdeltest.com</a> and
+  <a href="https://www.the-numbers.com/market/">the-numbers.com</a>. Note that this data set only
+  includes fictional movies (ie no documentaries) and is based on movie theater ticket sales and so
+  does not count views via streaming services.
+</p>
+{% endblock %}

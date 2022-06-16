@@ -1,0 +1,17 @@
+{% comment %}
+Component for listing out movies with minimal data (ie for navbar search).
+
+Lists out the movies as a drop down without having to press enter but if they DO perform a proper
+search by submitting the form, it'll link them to the advanced search page.
+{% endcomment %}
+
+<form action="{% url 'common:search' %}" method="get">
+  {% comment %} The label is for accessibility. It's hidden visually but will be picked up by screen readers {% endcomment %}
+  <label htmlFor="user-input"><span className="visually-hidden">Search for a movie</span></label>
+  <input id="user-input" name="title" type="text" placeholder="Search for a movie..." />
+</form>
+
+{% comment %} We include the results from a seperate file so that they're the only part reloaded on a new search. {% endcomment %}
+<div id="replaceable-content">
+  {% include 'common/movies/movie_list_min_results.html' %}
+</div>

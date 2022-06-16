@@ -1,16 +1,15 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from common.models import IndexedTimeStampedModel
+from model_utils.models import TimeStampedModel
 
 from .managers import UserManager
 
 
-class User(AbstractBaseUser, PermissionsMixin, IndexedTimeStampedModel):
-    email = models.EmailField(max_length=255, unique=True)
+class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
+    email = models.EmailField(max_length=100, unique=True)
     is_staff = models.BooleanField(
-        default=False, help_text=_("Designates whether the user can log into this admin " "site.")
+        default=False, help_text=_("Designates whether the user can log into this admin site.")
     )
     is_active = models.BooleanField(
         default=True,
