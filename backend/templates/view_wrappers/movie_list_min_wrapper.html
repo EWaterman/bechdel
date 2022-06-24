@@ -1,0 +1,19 @@
+{% comment %} Lists the results of a search on movies with minimal data (ie for navbar search). {% endcomment %}
+
+{% comment %} TODO: use the smaller image  {% endcomment %}
+<div id="movie-list-min-container-inner">
+  {% if movies_min_by_title %}
+    {% for movie in movies_min_by_title %}
+      <div class="movie-list-min-entry" onclick="location.href='{% url 'common:movie-details' movie.id %}';"> 
+        <img style="height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
+        {{ movie.title }} ({{movie.releaseYear}})
+      </div>
+      {% if not forloop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <div class="movie-list-min-entry" onclick="location.href='{% url 'common:search' %}?title={{ title }}';">
+    <p>Click for more results</p>
+  </div>
+</div>

@@ -1,11 +1,11 @@
-{% extends '../common/index.html' %}
+{% extends './page_templates/index.html' %}
 
 {% comment %} The page for displaying an individual movie. {% endcomment %}
-{% block content %}
+{% block title %}Bechdel Tester - Movie Info{% endblock %}
 
+{% block content %}
 <h1>Movie Details</h1>
 
-<!-- ALL MOVIE FIELDS -->
-<!-- ALL BECHDEL RESULT DETAILS -->
+{{ movie_details }}
 
 {% endblock %}

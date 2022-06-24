@@ -1,0 +1,58 @@
+{% extends './base.html' %}
+
+{% comment %} Common content that should be on all pages {% endcomment %}
+{% block body %}
+
+    {% comment %} Navbar Header {% endcomment %}
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            {% comment %} Main Logo {% endcomment %}
+            <a class="navbar-brand" href="{% url 'common:home' %}">Bechdel Tester</a>
+
+            {% comment %} Button to expand the navbar on mobile {% endcomment %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            {% comment %} Content that gets collapsed on mobile {% endcomment %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% comment %} On desktop display the search form  {% endcomment %}
+                    <li class="nav-item d-none d-lg-block">
+                        <form class="d-flex" action="{% url 'common:search' %}" method="get">
+                            {% comment %} The label is for accessibility. It's hidden visually but will be picked up by screen readers {% endcomment %}
+                            <label htmlFor="user-input"><span class="visually-hidden">Search for a movie</span></label>
+                            <input id="user-input" class="form-control me-2" name="title" type="search" placeholder="Search for a movie" aria-label="Search for a movie" />
+                        </form>
+                    </li>
+                    {% comment %} On mobile just link to the search page {% endcomment %}
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link" href="{% url 'common:search' %}">Search Movies</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    {% comment %}
+    Component that will be filled out with movies when a search is ran via the above form.
+    Lists out the movies as a drop down without having to press enter. (If they DO perform a proper
+    search by submitting the form, it'll link them to the advanced search page.)
+    {% endcomment %}
+    <div id="movie-list-min-container">
+        <div id="replaceable-content"></div>
+    </div>
+
+    {% comment %} Where the actual page content will go. {% endcomment %}
+    <div id="page-content">
+        {% block content %} {% endblock %}
+    </div>
+
+    {% comment %} Footer {% endcomment %}
+    <footer id="page-footer">
+        <div class="container p-4">
+            Made by <a class="text-white" href="https://evanjwaterman.com/">Evan</a>
+        </div>
+    </footer>
+
+{% endblock %}

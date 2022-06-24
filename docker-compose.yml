@@ -18,16 +18,6 @@ services:
   result:
     image: "redis:alpine"
 
-  frontend:
-    build:
-      dockerfile: frontend/Dockerfile
-      context: .
-    volumes:
-      - .:/app/
-      - /app/node_modules
-    ports:
-      - "3000:3000"
-
   backend:
     build:
       dockerfile: backend/Dockerfile
@@ -42,25 +32,6 @@ services:
       - broker
       - result
       - frontend
-
-  celery:
-    build:
-      dockerfile: backend/Dockerfile
-      context: .
-    command: python manage.py celery
-    volumes:
-      - ./backend/:/home/user/app/
-    env_file: backend/.env
-    depends_on:
-      - db
-      - broker
-      - result
-
-  mailhog: # service for faking a SMTP server
-    image: mailhog/mailhog
-    ports:
-      - '1025:1025' # smtp server
-      - '8025:8025' # web ui
 
 volumes:
   dbdata:

@@ -1,0 +1,10 @@
+{% if movie_cards %}
+    <div id="movie-list-card-container">
+        {% for movie in movie_cards %}
+            <div class="movie-list-card-entry" onclick="location.href='{% url 'common:movie-details' movie.id %}';"> 
+                <img style="height: 75px" class="card-movie-poster" src="/media/{{movie.image}}" />
+                {{ movie.title }} {{movie.bechdelResult}}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

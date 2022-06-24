@@ -10,6 +10,11 @@ WebApp that shows whether or not a movie passes the [Bechdel Test](https://en.wi
 
 Initially cloned from the [Django React Boilerplate](https://github.com/vintasoftware/django-react-boilerplate) which was developed by [Vinta Software](https://www.vinta.com.br/).
 
+
+### TODO:
+- if I ever add users in, will need this: https://github.com/mobolic/django-session-cleanup (need to install celery again so look up what I removed in the commit after this one https://github.com/EWaterman/bechdel/commit/e86050f20b5e4358f4b1225eb361d656f392d0f3)
+
+
 ### Things I did to make it work:
 
 Makefile

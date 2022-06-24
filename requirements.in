@@ -1,6 +1,4 @@
 django>=3,<4
-celery[redis]
-celery-redbeat
 django-filter
 django-model-utils
 django-webpack-loader>=1.0.0

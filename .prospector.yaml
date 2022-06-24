@@ -7,7 +7,6 @@ member-warnings: true
 
 uses:
   - django
-  - celery
 
 pep8:
   full: true

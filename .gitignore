@@ -3,8 +3,8 @@
 .DS_Store
 .env
 */settings/local.py
-/staticfiles/*
-/mediafiles/*
+backend/staticfiles/*
+backend/mediafiles/*
 __pycache__/
 /.vscode/
 

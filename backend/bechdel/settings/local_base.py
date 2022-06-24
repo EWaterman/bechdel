@@ -18,10 +18,6 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 AUTH_PASSWORD_VALIDATORS = []  # allow easy passwords only on local
 
-# Celery
-CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = True
-
 # Email settings for mailhog
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'mailhog'
@@ -36,8 +32,7 @@ LOGGING = {
         "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "standard",},
     },
     "loggers": {
-        "": {"handlers": ["console"], "level": "INFO"},
-        "celery": {"handlers": ["console"], "level": "INFO"},
+        "": {"handlers": ["console"], "level": "INFO"}
     },
 }
 

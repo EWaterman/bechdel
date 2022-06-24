@@ -1,42 +1,56 @@
-{% extends '../common/index.html' %}
+{% extends './page_templates/index.html' %}
 
 {% comment %} The Homepage {% endcomment %}
+{% block title %}Bechdel Tester{% endblock %}
+
 {% block content %}
-<h1>Bechdel Test (Unofficial)</h1>
 
-<p>
-  A webapp designed to show whether or not a movie passes the
-  <a href="https://en.wikipedia.org/wiki/Bechdel_test">Bechdel Test</a>.
-</p>
+{% comment %} Header {% endcomment %}
+<div id="home-section-1">
+  <h1>Bechdel Tester (Unofficial)</h1>
 
-<p>In short, a movie passes the Bechdel Test if:</p>
+  <p>
+    A webapp designed to show whether or not a movie passes the
+    <a href="https://en.wikipedia.org/wiki/Bechdel_test">Bechdel Test</a>.
+  </p>
 
-<ol>
-  <li>It has at least two named women in it</li>
-  <li>Who talk to each other</li>
-  <li>About something other than a man</li>
-</ol>
+  {% comment %} Lists movies in card form {% endcomment %}
+  {% if movie_cards %}
+    {{ movie_cards }}
+  {% endif %}
 
-<h5>btn for advanced search</h5>
-<h5>btn for more info</h5>
-<h5>btn for charities to support</h5>
+  <p>In short, a movie passes the Bechdel Test if:</p>
 
-<h2>GRAPH SECTION</h2>
+  <ol>
+    <li>It has at least two named women in it</li>
+    <li>Who talk to each other</li>
+    <li>About something other than a man</li>
+  </ol>
 
-{% comment %} https://www.emgoto.com/react-search-bar/ add this here AND in header {% endcomment %}
+  <a class="btn btn-primary" href="{% url 'common:search' %}" role="button">Advanced Search</a>
+</div>
 
-{% comment %}
-<h3>REACT APP START</h3>
-{% endcomment %} {% comment %}
-<div id="react-app"></div>
-{% endcomment %} {% comment %}
-<h3>REACT APP END</h3>
-{% endcomment %}
+{% comment %} Graphs {% endcomment %}
+<div id="home-section-2">
+  {% comment %} TODO: bar chart! http://prepbootstrap.com/bootstrap-template/bootstrap-bar-chart {% endcomment %}
 
-<p>
-  Initial data sourced from <a href="https://bechdeltest.com/">bechdeltest.com</a> and
-  <a href="https://www.the-numbers.com/market/">the-numbers.com</a>. Note that this data set only
-  includes fictional movies (ie no documentaries) and is based on movie theater ticket sales and so
-  does not count views via streaming services.
-</p>
+  {% comment %} Graph data grouped by year {% endcomment %}
+  <h3>GRAPH BY YEAR</h3>
+  {{ results_by_year }}
+
+  {% comment %} Graph data grouped by genre {% endcomment %}
+  <h3>GRAPH BY GENRE</h3>
+  {{ results_by_genre }}
+</div>
+
+{% comment %} More Info {% endcomment %}
+<div id="home-section-3">
+  <p>
+    This website is in no way affiliated with Alison Bechdel. To support her directly, please <a href="https://dykestowatchoutfor.com/">visit her website</a>.
+    Initial data sourced from <a href="https://bechdeltest.com/">bechdeltest.com</a> and
+    <a href="https://www.the-numbers.com/market/">the-numbers.com</a>. Note that this data set only
+    includes fictional movies (ie no documentaries). Gross sales figures are based on movie theater ticket sales and
+    do not factor in views via streaming services.
+  </p>
+</div>
 {% endblock %}

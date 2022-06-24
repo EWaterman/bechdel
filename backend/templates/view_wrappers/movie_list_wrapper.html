@@ -1,0 +1,15 @@
+{% comment %} Component for listing out movies in detail (ie on advanced search page). {% endcomment %}
+{% if movies %}
+  {% for movie in movies %}
+    <div class="movie-meta">
+      <img style="max-height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
+      <div class="movie-details">
+          <p>{{ movie.title }} ({{movie.releaseDate}}), genre: {{movie.genre}}, gross: {{movie.gross}}, passes bechdel: {{movie.bechdelResult}}</p>
+      </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>No results found.</p>
+{% endif %}
+
+{% comment %} TODO: add infinite scroll support https://dev.to/thepylot/infinite-scroll-with-django-d0a {% endcomment %}

@@ -115,6 +115,11 @@ USE_TZ = True
 
 STATICFILES_DIRS = (base_dir_join("../frontend"),)
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
 # Webpack
 WEBPACK_LOADER = {
     "DEFAULT": {
@@ -124,13 +129,6 @@ WEBPACK_LOADER = {
         "IGNORE": [".+\.hot-update.js", ".+\.map"],
     }
 }
-
-# Celery
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-CELERY_RESULT_SERIALIZER = "json"
-CELERY_ACKS_LATE = True
-CELERY_TIMEZONE = TIME_ZONE
 
 # Sentry
 SENTRY_DSN = config("SENTRY_DSN", default="")

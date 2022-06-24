@@ -1,0 +1,28 @@
+{% comment %} Wraps the view for fetching all the metadata of a movie. {% endcomment %}
+<div id="movie-details-container">
+    {% comment %} The movie metadata {% endcomment %}
+    {% if movie_meta %}
+        <div class="movie-meta">
+            <img style="max-height: 200px" class="movie-poster" src="/media/{{movie_meta.image}}" />
+            <div class="movie-details">
+                <p>movie title: {{movie_meta.title}}</p>
+                <p>release date: {{movie_meta.releaseDate}}</p>
+                <p>genre: {{movie_meta.genre}}</p>
+                <p>gross: {{movie_meta.gross}}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% comment %} The bechdel test results {% endcomment %}
+    {% if test_results %}
+        <div class="movie-bechdel">
+            <div class="bechdel-details">
+                <p>bechdel result: {{movie_meta.bechdelResult}}</p>
+                <p>Has at least two named women: {{test_results.bRule1Result}}</p>
+                <p>Who speak to each other: {{test_results.bRule2Result}}</p>
+                <p>About something other than a man: {{test_results.bRule3Result}}</p>
+                <p>notes: {{test_results.notes}}</p>
+            </div>
+        </div>
+    {% endif %}
+</div>

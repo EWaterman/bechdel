@@ -1,0 +1,44 @@
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+#page-content {
+  padding-top: 56px; /* To offset page from navbar */
+  /* background-color: white; */
+}
+
+#page-footer {
+  background-color: rgba(33 37 41); /* matches the navbar */
+  color: white;
+  text-align: center;
+}
+
+/* #home-section-1 {
+  background-color: rgba(15 15 15);
+  color: white;
+} */
+
+/* #home-section-3 {
+  background-color: rgba(15 15 15);
+  color: white;
+} */
+
+#movie-list-min-container {
+  position: fixed;
+  top: 56px; /* so it's right under the navbar*/
+  left: 0;
+  z-index: 2000; /* navbar has 1030 so ensure it's in front of that */
+  background-color: rgb(255 255 255);
+  padding: 10px;
+}
+
+#movie-list-min-entry:hover {
+  cursor: pointer;
+  background-color: rgb(128, 214, 253);
+}

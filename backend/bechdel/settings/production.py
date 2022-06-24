@@ -43,14 +43,6 @@ X_FRAME_OPTIONS = "DENY"
 # Webpack
 WEBPACK_LOADER["DEFAULT"]["CACHE"] = True
 
-# Celery
-CELERY_BROKER_URL = config("REDIS_URL")
-CELERY_RESULT_BACKEND = config("REDIS_URL")
-CELERY_SEND_TASK_ERROR_EMAILS = True
-
-# Redbeat https://redbeat.readthedocs.io/en/latest/config.html#redbeat-redis-url
-redbeat_redis_url = config("REDBEAT_REDIS_URL", default="")
-
 # Whitenoise
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
