@@ -1,6 +1,5 @@
 from django.db import models
 from model_utils.models import TimeStampedModel
-from model_utils import Choices
 
 # All movie metadata models/tables
 
@@ -19,7 +18,6 @@ class MovieMetaModel(TimeStampedModel):
         BCOMEDY = 9
         OTHER = 10
 
-    # TODO: add rating field
     class Rating(models.IntegerChoices):
         G = 0
         PG = 1
@@ -31,9 +29,6 @@ class MovieMetaModel(TimeStampedModel):
     releaseDate = models.DateField(db_index=True)
     genre = models.PositiveSmallIntegerField(choices=Genre.choices, db_index=True)
     gross = models.PositiveBigIntegerField(db_index=True)
-    # TODO: add a copy of this field that's an icon version for smoother searching
-    # https://stackoverflow.com/questions/63759605/django-soft-resize-uploaded-image-to-multiple-sizes-and-upload-to-respective-fol
-    # https://stackoverflow.com/questions/32125053/how-to-resize-image-and-save-it-django
     image = models.ImageField(upload_to="posters/", default="posters/default.jpg")
     bechdelResult = models.BooleanField(null=True, blank=True)
 

@@ -1,9 +1,9 @@
-from django.views import generic
-
+from django.views.generic import TemplateView
 from movies.views import movie_details, movies_card_by_date_view, results_by_year, results_by_genre, MovieDetailsByComplexView
+from movies.forms import MovieComplexSearchForm
 
 # Views for loading individual web pages
-class HomepageView(generic.TemplateView):
+class HomepageView(TemplateView):
     template_name = 'pages/home.html'
 
     def get_context_data(self, **kwargs):
@@ -14,16 +14,17 @@ class HomepageView(generic.TemplateView):
         return context
 
 
-class AdvancedSearchView(generic.TemplateView):
+class AdvancedSearchView(TemplateView):
     template_name = 'pages/adv_search.html'
 
     def get_context_data(self, **kwargs):
         context = super(AdvancedSearchView, self).get_context_data(**kwargs)
-        context['movies'] = MovieDetailsByComplexView.get_queryset(self)
+        context['movies'] = MovieDetailsByComplexView.as_view()(self.request).rendered_content
+        context['form'] = MovieComplexSearchForm(self.request.GET)
         return context
 
 
-class MovieDetailsView(generic.TemplateView):
+class MovieDetailsView(TemplateView):
     template_name = 'pages/movie_details.html'
 
     def get_context_data(self, **kwargs):

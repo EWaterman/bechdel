@@ -32,7 +32,7 @@ let ajax_call = function (endpoint, request_parameters) {
 	})
 }
 
-// TODO: hide search when the searchbar loses focus
+// When there's typing in the searchbar, re-issue the search
 user_input.on('keyup', function () {
     // start animating the search icon with the CSS class
     search_icon.addClass('blink')
@@ -44,8 +44,17 @@ user_input.on('keyup', function () {
 
     // setTimeout returns the ID of the function to be executed
 	const request_parameters = {
-		title: $(this).val() // value of user_input: the HTML element with ID user-input
+		title: $(this).val() // value of the HTML element with id user-input (ie the searchbar)
     }
 	scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
 })
-	  
+
+// When the searchbar loses focus, hide the search results
+user_input.focusout(function() {
+    replaceable_div.hide()
+})
+
+// When the searchbar gains focus, show the search results
+user_input.focusin(function() {
+    replaceable_div.show()
+})

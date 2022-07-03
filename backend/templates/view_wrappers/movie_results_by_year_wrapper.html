@@ -1,5 +1,30 @@
-{% if results %}
-    <p>{{ results }}</p>
+{% if results %}    
+    {% comment %} Using chart.js https://www.chartjs.org/docs/latest/charts/bar.html {% endcomment %}
+    <canvas id="by-year-chart" aria-label="Bechdel results by year">Unable to load "by year" graph.</canvas>
+    <script type="text/javascript">
+        const byYearCtx = document.getElementById('by-year-chart').getContext('2d');
+        const byYearChart = new Chart(byYearCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ results.x }},
+                datasets: [{
+                    label: '% of movies that pass',
+                    data: {{ results.y }},
+                    backgroundColor: 'rgba(77, 166, 255)',
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
 {% else %}
     <p>Unable to load "by year" graph.</p>
 {% endif %}

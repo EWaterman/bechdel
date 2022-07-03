@@ -1,5 +1,33 @@
-{% if results %}
-    <p>{{ results }}</p>
+{% if results %}    
+    {% comment %} Using chart.js https://www.chartjs.org/docs/latest/charts/bar.html {% endcomment %}
+    <canvas id="by-genre-chart" aria-label="Bechdel results by genre">Unable to load "by genre" graph.</canvas>
+    <script type="text/javascript">
+        const byGenreCtx = document.getElementById('by-genre-chart').getContext('2d');
+        const byGenreChart = new Chart(byGenreCtx, {
+            type: 'bar',
+            data: {
+                // This doesn't parse quotes well (becomes &#x27;Western&#x27). Maybe because of parse_to_string in the view instead of template.parse.
+                // Could try fixing it but since I sort the results by db id, it's always this order so it's fine.
+                // labels: {{ results.x }},
+                labels: ["Action", "Horror", "Comedy", "Adventure", "Drama", "Thriller/Suspense", "Musical", "Romantic Comedy", "Western", "Black Comedy"],
+                datasets: [{
+                    label: '% of movies that pass',
+                    data: {{ results.y }},
+                    backgroundColor: 'rgba(77, 166, 255)',
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
 {% else %}
     <p>Unable to load "by genre" graph.</p>
 {% endif %}

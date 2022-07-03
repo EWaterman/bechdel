@@ -1,15 +1,30 @@
 {% comment %} Component for listing out movies in detail (ie on advanced search page). {% endcomment %}
 {% if movies %}
-  {% for movie in movies %}
-    <div class="movie-meta">
-      <img style="max-height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
-      <div class="movie-details">
-          <p>{{ movie.title }} ({{movie.releaseDate}}), genre: {{movie.genre}}, gross: {{movie.gross}}, passes bechdel: {{movie.bechdelResult}}</p>
-      </div>
+  <div class="container">
+    <div class="row infinite-container">
+        {% for movie in movies %}
+            <div class="col-md-6 infinite-item">
+                <div class="card mb-4 shadow-sm">
+                    <img style="max-height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
+                    <div class="card-body">
+                      <p>{{ movie.title }} ({{ movie.releaseYear }})</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% comment %} The infinite scroll. {% endcomment %}
+    {% if page_obj.has_next %}
+      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    {% endif %}
+    <div class="d-flex justify-content-center" style="display:none;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
   </div>
-  {% endfor %}
+
 {% else %}
   <p>No results found.</p>
 {% endif %}
-
-{% comment %} TODO: add infinite scroll support https://dev.to/thepylot/infinite-scroll-with-django-d0a {% endcomment %}

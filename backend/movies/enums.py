@@ -7,7 +7,9 @@ def invertEnum(enum):
         inverted[v] = k
     return inverted
 
+# Enumerates user facing values keyed by internal (db) values
 GENRES = {
+    None: 'N/A',
     0: 'Action',
     1: 'Horror',
     2: 'Comedy',
@@ -22,17 +24,42 @@ GENRES = {
 }
 GENRES_INV = invertEnum(GENRES)
 
-RATINGS = {
+RATING = {
+    None: 'N/A',
     0: 'G',
     1: 'PG',
     2: 'PG-13',
     3: 'R',
     4: 'Not Rated'
 }
-RATINGS_INV = invertEnum(RATINGS)
+RATING_INV = invertEnum(RATING)
 
-# A copy of this is hardcoded into any forms that filter by test result
+# For filtering based on test results. Stringified because it's query params.
 TEST_RESULT = {
-    'Pass': True,
-    'Fail': False,
+    None: 'N/A',
+    '1': 'Pass',
+    '0': 'Fail'
+}
+
+# For selecting the ordering of movies so maps from column name.
+MOVIE_ORDERING = {
+    'title': 'Movie Title',
+    'releaseDate': 'Release Date',
+    'gross': 'Top Grossing'
+}
+
+# Maps month to numerical value. Used when loading data to the db.
+MONTH_NAMES = {
+    'Jan': '01',
+    'Feb': '02',
+    'Mar': '03',
+    'Apr': '04',
+    'May': '05',
+    'Jun': '06',
+    'Jul': '07',
+    'Aug': '08',
+    'Sep': '09',
+    'Oct': '10',
+    'Nov': '11',
+    'Dec': '12'
 }

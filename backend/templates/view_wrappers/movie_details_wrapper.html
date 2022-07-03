@@ -3,7 +3,7 @@
     {% comment %} The movie metadata {% endcomment %}
     {% if movie_meta %}
         <div class="movie-meta">
-            <img style="max-height: 200px" class="movie-poster" src="/media/{{movie_meta.image}}" />
+            <img style="max-height: 200px" class="movie-poster" src="{{movie_meta.image}}" />
             <div class="movie-details">
                 <p>movie title: {{movie_meta.title}}</p>
                 <p>release date: {{movie_meta.releaseDate}}</p>

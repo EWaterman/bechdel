@@ -1,4 +1,5 @@
 {% extends './page_templates/index.html' %}
+{% load static %}
 
 {% comment %} The Advanced Search page for filtering movies. {% endcomment %}
 {% block title %}Bechdel Tester - Search{% endblock %}
@@ -10,61 +11,59 @@
 {% comment %} Search Form {% endcomment %}
 {% comment %} https://getbootstrap.com/docs/4.0/components/forms/ {% endcomment %}
 {% comment %} https://docs.djangoproject.com/en/4.0/topics/forms/ {% endcomment %}
-<form action="{% url 'common:search' %}" method="get">
+<form id="adv-search-form" action="{% url 'common:search' %}" method="get">
   <div class="form-group">
-    <label for="title-input">Movie Title</label>
-    <input name="title" type="text" class="form-control" id="title-input" placeholder="Search for a movie...">
+    {{ form.title.label }}
+    {{ form.title }}
   </div>
 
   <div class="form-group">
-    <label for="year-input">Year Released</label>
-    <input name="year" type="text" class="form-control" id="year-input" placeholder="Ex: 2022">
+    {{ form.year.label }}
+    {{ form.year }}
   </div>
 
   <div class="form-group">
-    <label for="genre-input">Genre</label>
-    <select multiple  name="genre" class="form-control" id="genre-input">
-      <option>Action</option>
-      <option>Horror</option>
-      <option>Comedy</option>
-      <option>Adventure</option>
-      <option>Drama</option>
-      <option>Thriller/Suspense</option>
-      <option>Musical</option>
-      <option>Romantic Comedy</option>
-      <option>Western</option>
-      <option>Black Comedy</option>
-      <option>Other</option>
-    </select>
+    {{ form.genre.label }}
+    {{ form.genre }}
   </div>
 
   <div class="form-group">
-    <label for="b-result-input">Passes the Bechdel Test?</label>
-    <select name="bResult" class="form-control" id="b-result-input">
-      <option>Either</option>
-      <option>Pass</option>
-      <option>Fail</option>
-    </select>
+    {{ form.bResult.label }}
+    {{ form.bResult }}
   </div>
 
   <div class="form-group">
-    <label for="order-input">Order By</label>
-    <select name="order" class="form-control" id="order-input">
-      <option>Movie Title</option>
-      <option>Release Date</option>
-      <option>Top Grossing</option>
-    </select>
+    {{ form.order.label }}
+    {{ form.order }}
   </div>
 
-  <div class="form-check">
-    <label class="form-check-label" for="sort-input">Sort By Ascending</label>
-    <input checked name="ascending" type="checkbox" class="form-check-input" id="sort-input">
+  <div class="form-group">
+    {{ form.ascending }}
+    {{ form.ascending.label }}
   </div>
 
   <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
 {% comment %} Display the list of movies {% endcomment %}
-{% include 'view_wrappers/movie_list_wrapper.html' %}
+{{ movies }}
 
+{% endblock %}
+
+{% comment %} Handles the infinite scroll for the search. Actual logic in movie_list_wrapper {% endcomment %}
+{% block footer-scripts %}
+<script src="{% static 'js/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/infinite.min.js' %}" type="text/javascript"></script>
+<script>
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+
+    onBeforePageLoad: function () {
+      $('.spinner-border').show()
+    },
+    onAfterPageLoad: function () {
+      $('.spinner-border').hide()
+    }
+  })
+</script>
 {% endblock %}

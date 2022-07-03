@@ -1,13 +1,6 @@
-.visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
+/**
+ * ========= GENERAL =========
+ */
 #page-content {
   padding-top: 56px; /* To offset page from navbar */
   /* background-color: white; */
@@ -18,16 +11,6 @@
   color: white;
   text-align: center;
 }
-
-/* #home-section-1 {
-  background-color: rgba(15 15 15);
-  color: white;
-} */
-
-/* #home-section-3 {
-  background-color: rgba(15 15 15);
-  color: white;
-} */
 
 #movie-list-min-container {
   position: fixed;
@@ -42,3 +25,34 @@
   cursor: pointer;
   background-color: rgb(128, 214, 253);
 }
+
+
+/**
+ * ========= HOMEPAGE =========
+ */
+/* #home-section-1 {
+  background-color: rgba(15 15 15);
+  color: white;
+} */
+
+/* #home-section-3 {
+  background-color: rgba(15 15 15);
+  color: white;
+} */
+
+.graph-wrapper {
+  width: 60%;
+}
+
+
+/**
+ * ========= ADVANCED SEARCH PAGE =========
+ */
+.form-group {
+  margin: 10px;
+}
+
+
+/**
+ * ========= MOVIE DETAILS PAGE =========
+ */

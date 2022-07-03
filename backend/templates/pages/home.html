@@ -3,6 +3,10 @@
 {% comment %} The Homepage {% endcomment %}
 {% block title %}Bechdel Tester{% endblock %}
 
+{% block header-scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js" integrity="sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block content %}
 
 {% comment %} Header {% endcomment %}
@@ -15,9 +19,9 @@
   </p>
 
   {% comment %} Lists movies in card form {% endcomment %}
-  {% if movie_cards %}
+  {% comment %} {% if movie_cards %}
     {{ movie_cards }}
-  {% endif %}
+  {% endif %} {% endcomment %}
 
   <p>In short, a movie passes the Bechdel Test if:</p>
 
@@ -32,15 +36,17 @@
 
 {% comment %} Graphs {% endcomment %}
 <div id="home-section-2">
-  {% comment %} TODO: bar chart! http://prepbootstrap.com/bootstrap-template/bootstrap-bar-chart {% endcomment %}
-
   {% comment %} Graph data grouped by year {% endcomment %}
   <h3>GRAPH BY YEAR</h3>
-  {{ results_by_year }}
+  <div class="graph-wrapper">
+    {{ results_by_year }}
+  </div>
 
   {% comment %} Graph data grouped by genre {% endcomment %}
   <h3>GRAPH BY GENRE</h3>
-  {{ results_by_genre }}
+  <div class="graph-wrapper">
+    {{ results_by_genre }}
+  </div>
 </div>
 
 {% comment %} More Info {% endcomment %}
