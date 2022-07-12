@@ -1,9 +1,17 @@
 /**
  * ========= GENERAL =========
  */
+body {
+  background-color: rgb(241 241 241);
+}
+
+img {
+  max-width: 100%; /* don't ever stretch outside of the parent element*/
+}
+
 #page-content {
-  padding-top: 56px; /* To offset page from navbar */
-  /* background-color: white; */
+  padding-top: 100px; /* 56px to offset page from navbar plus some extra */
+  padding-bottom: 50px;
 }
 
 #page-footer {
@@ -12,47 +20,174 @@
   text-align: center;
 }
 
+.movie-card {
+  -webkit-transition: all .1s ease-in-out;
+  -ms-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+.movie-card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+}
+
+.my-h {
+  margin-bottom: 1.8rem!important;
+  border-bottom: 2px solid rgb(220, 220, 220);
+}
+
+.my-section {
+  margin-top: 75px;
+}
+
+
+/**
+ * ========= NAVBAR SEARCH =========
+ */
 #movie-list-min-container {
   position: fixed;
   top: 56px; /* so it's right under the navbar*/
   left: 0;
   z-index: 2000; /* navbar has 1030 so ensure it's in front of that */
-  background-color: rgb(255 255 255);
+  background-color: white;
+}
+
+#movie-list-min-container-inner {
   padding: 10px;
 }
 
-#movie-list-min-entry:hover {
+.movie-list-min-entry:hover {
   cursor: pointer;
-  background-color: rgb(128, 214, 253);
+  background-color: rgb(190, 229, 255);
+}
+
+.listed-movie-poster {
+  /* Stretch the posters to all be the same. A majority have this aspect ration already so it's mostly harmless. */
+  aspect-ratio: 480 / 711;
 }
 
 
 /**
  * ========= HOMEPAGE =========
  */
-/* #home-section-1 {
-  background-color: rgba(15 15 15);
-  color: white;
-} */
+#home-section-1 {
+  text-align: center;
+}
 
-/* #home-section-3 {
-  background-color: rgba(15 15 15);
-  color: white;
-} */
+#home-section-2 {
+  text-align: center;
+}
 
-.graph-wrapper {
-  width: 60%;
+.home-btn-group {
+  margin-top: 12px;
+}
+
+.carousel-item-prev,
+.carousel-item-next,
+.carousel-item.active {
+    display:flex;
+}
+
+.card-pass {
+  border: 3px solid rgb(25,135,84);
+}
+.card-pass .card-body {
+  background-color: rgb(25,135,84);
+}
+
+.card-fail {
+  border: 3px solid rgb(220,53,69);
+}
+.card-fail .card-body {
+  background-color: rgb(220,53,69);
+}
+
+#movie-card-carousel .card-body { 
+  color: white;
+}
+
+#movie-card-carousel .card {
+  box-shadow: 2px 2px 3px rgb(0 0 0 / 35%);
+}
+
+#movie-card-carousel .card-img-top > img {
+  /* Stretch the posters to all be the same. A majority have this aspect ration already so it's mostly harmless. */
+  aspect-ratio: 480 / 711;
+}
+
+/* For simplicity hide the carousel on mobile */
+@media (max-width: 767px) {
+  #movie-card-carousel {
+    display: none;
+  }
+}
+
+
+/**
+ * ========= MORE INFO PAGE =========
+ */
+#info-section-2 {
+  scroll-margin-top: 60px; /* Account for header when linking to this element */
 }
 
 
 /**
  * ========= ADVANCED SEARCH PAGE =========
  */
+#adv-search-form {
+  margin: 0 10px 40px 10px;
+}
+
 .form-group {
-  margin: 10px;
+  margin-bottom: 10px;
+}
+
+.movie-card .card-body { 
+  padding: 0;
+}
+
+.card-img-left {
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-bottom-left-radius: calc(0.25rem - 1px);
+  
+  /* Stretch the posters to all be the same. A majority have this aspect ration already so it's mostly harmless. */
+  aspect-ratio: 480 / 711;
 }
 
 
 /**
  * ========= MOVIE DETAILS PAGE =========
  */
+ .movie-details-section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 15px;
+}
+
+/* md or larger */
+@media (min-width: 768px) {
+  #movie-details-bechdel-result {
+    border-right: 2px solid rgb(220, 220, 220);
+  }
+}
+
+ .details-movie-poster {
+  max-width: 100%;
+  border-radius: 10px;
+ }
+
+ .test-rule-text {
+  margin-left: 10px;
+ }
+
+ .i-rule-result {
+  font-size: 25px;
+ }
+
+#movie-details-bechdel-notes {
+  border-top: 2px solid rgb(220, 220, 220);
+  padding-top: 20px;
+  margin-top: 20px;
+}

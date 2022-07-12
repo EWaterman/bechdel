@@ -50,8 +50,14 @@ user_input.on('keyup', function () {
 })
 
 // When the searchbar loses focus, hide the search results
+// The delay is to ensure that if the user clicks a search result
+// that gets triggered first. Otherwise the element is hidden before the click event.
 user_input.focusout(function() {
-    replaceable_div.hide()
+    setTimeout(
+        function() {
+            replaceable_div.hide()
+        },
+        200); // 100 ms is the minimum
 })
 
 // When the searchbar gains focus, show the search results

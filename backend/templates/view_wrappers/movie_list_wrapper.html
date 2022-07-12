@@ -2,27 +2,33 @@
 {% if movies %}
   <div class="container">
     <div class="row infinite-container">
-        {% for movie in movies %}
-            <div class="col-md-6 infinite-item">
-                <div class="card mb-4 shadow-sm">
-                    <img style="max-height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
-                    <div class="card-body">
-                      <p>{{ movie.title }} ({{ movie.releaseYear }})</p>
-                    </div>
+      {% for movie in movies %}
+        <div class="col-md-6 infinite-item">
+          <div class="card movie-card mb-4 shadow-sm" onclick="location.href='{% url 'common:movie-details' movie.id %}';">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-3">
+                  <img class="card-img-left" src="{{movie.image}}" />
                 </div>
+                <div class="col-9">
+                  <h4>{{ movie.title_short }} ({{ movie.release_year }})</h4>
+                </div>
+              </div>
             </div>
-        {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
     </div>
 
     {% comment %} The infinite scroll. {% endcomment %}
     {% if page_obj.has_next %}
-      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
-    {% endif %}
-    <div class="d-flex justify-content-center" style="display:none;">
+      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}&{{ qparams }}"></a>
+      <div class="d-flex justify-content-center" style="display:none;">
         <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">Loading...</span>
         </div>
-    </div>
+      </div>
+    {% endif %}
   </div>
 
 {% else %}

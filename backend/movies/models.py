@@ -2,6 +2,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 # All movie metadata models/tables
+DEFAULT_POSTER_URI = "posters/default.jpg"
 
 # Metadata about the movie + the individual test results (which are in the same table because they're always accessed together)
 class MovieMetaModel(TimeStampedModel):
@@ -29,7 +30,7 @@ class MovieMetaModel(TimeStampedModel):
     releaseDate = models.DateField(db_index=True)
     genre = models.PositiveSmallIntegerField(choices=Genre.choices, db_index=True)
     gross = models.PositiveBigIntegerField(db_index=True)
-    image = models.ImageField(upload_to="posters/", default="posters/default.jpg")
+    image = models.ImageField(upload_to="posters/", default=DEFAULT_POSTER_URI)
     bechdelResult = models.BooleanField(null=True, blank=True)
 
 

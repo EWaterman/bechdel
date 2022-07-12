@@ -14,21 +14,25 @@ class HomepageView(TemplateView):
         return context
 
 
-class AdvancedSearchView(TemplateView):
+class AdvancedSearchPageView(TemplateView):
     template_name = 'pages/adv_search.html'
 
     def get_context_data(self, **kwargs):
-        context = super(AdvancedSearchView, self).get_context_data(**kwargs)
+        context = super(AdvancedSearchPageView, self).get_context_data(**kwargs)
         context['movies'] = MovieDetailsByComplexView.as_view()(self.request).rendered_content
         context['form'] = MovieComplexSearchForm(self.request.GET)
         return context
 
 
-class MovieDetailsView(TemplateView):
+class MoreInfoPageView(TemplateView):
+    template_name = 'pages/more_info.html'
+
+
+class MovieDetailsPageView(TemplateView):
     template_name = 'pages/movie_details.html'
 
     def get_context_data(self, **kwargs):
         movieId = kwargs.get('movie_id')
-        context = super(MovieDetailsView, self).get_context_data(**kwargs)
+        context = super(MovieDetailsPageView, self).get_context_data(**kwargs)
         context['movie_details'] = movie_details(movieId)
         return context

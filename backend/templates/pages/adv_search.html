@@ -6,40 +6,52 @@
 
 {% block content %}
 
-<h1>Advanced Search</h1>
+<h1 class="my-h">Advanced Search</h1>
 
 {% comment %} Search Form {% endcomment %}
 {% comment %} https://getbootstrap.com/docs/4.0/components/forms/ {% endcomment %}
 {% comment %} https://docs.djangoproject.com/en/4.0/topics/forms/ {% endcomment %}
 <form id="adv-search-form" action="{% url 'common:search' %}" method="get">
-  <div class="form-group">
-    {{ form.title.label }}
-    {{ form.title }}
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.title.label }}
+        {{ form.title }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.year.label }}
+        {{ form.year }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.genre.label }}
+        {{ form.genre }}
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    {{ form.year.label }}
-    {{ form.year }}
-  </div>
-
-  <div class="form-group">
-    {{ form.genre.label }}
-    {{ form.genre }}
-  </div>
-
-  <div class="form-group">
-    {{ form.bResult.label }}
-    {{ form.bResult }}
-  </div>
-
-  <div class="form-group">
-    {{ form.order.label }}
-    {{ form.order }}
-  </div>
-
-  <div class="form-group">
-    {{ form.ascending }}
-    {{ form.ascending.label }}
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.bResult.label }}
+        {{ form.bResult }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.order.label }}
+        {{ form.order }}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        {{ form.ascending }}
+        {{ form.ascending.label }}
+      </div>
+    </div>
   </div>
 
   <button type="submit" class="btn btn-primary">Search</button>

@@ -1,6 +1,9 @@
 from rest_framework import serializers
+
 from .models import MovieMetaModel, TestResultsModel
 from .enums import GENRES, GENRES_INV
+
+SHORT_TITLE_MAX_LEN = 30
 
 # Handles conversion between json and python models
 
@@ -29,10 +32,30 @@ class KeyValueField(serializers.Field):
 
 class MovieDetailsSerializer(serializers.ModelSerializer):
     genre = KeyValueField(GENRES, GENRES_INV)
+    releaseDate = serializers.DateField(format="%b. %d, %Y")
+    gross_clean = serializers.SerializerMethodField()
+    title_short = serializers.SerializerMethodField()
+    release_year = serializers.SerializerMethodField()
 
     class Meta:
         model = MovieMetaModel
         fields = '__all__'
+
+    # Trim the title field down to 30 chars at the max
+    def get_title_short(self, obj):
+        if len(obj.title) <= SHORT_TITLE_MAX_LEN:
+            return obj.title
+
+        return obj.title[:SHORT_TITLE_MAX_LEN:] + "..."
+
+    # Extract just the year from the release date
+    def get_release_year(self, obj):
+        return obj.releaseDate.year
+
+    # Convert a number like 1000 to $1,000
+    def get_gross_clean(self, obj):
+        return "$" + "{:,}".format(obj.gross)
+
 
 class TestResultsSerializer(serializers.ModelSerializer):
     class Meta:

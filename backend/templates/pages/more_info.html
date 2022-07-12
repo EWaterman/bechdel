@@ -1,0 +1,75 @@
+{% extends './page_templates/index.html' %}
+
+{% comment %} The 'More Info' page {% endcomment %}
+{% block title %}Bechdel Tester - More Info{% endblock %}
+
+{% block content %}
+<div id="info-section-1">
+  <h2 class="my-h">More Info</h2>
+  <p>
+    This site is based off of the <a href="https://en.wikipedia.org/wiki/Bechdel_test">Bechdel Test</a>,
+    created by <a href="https://dykestowatchoutfor.com/">Alison Bechdel</a> and was made to show the lack
+    of representation of women in film in comparison to cisgendered men. It's my hope that by increasing
+    awareness of this discrepancy, we can better coordinate efforts towards reducing it.
+  </p>
+  <p>
+    That said, while the Bechdel Test is an extremely useful tool, it's important to acknowledge its limitations.
+    It does nothing to account for the representation of other marginalized groups in the film industry, such as people of colour,
+    as well as transgender and gender non-conforming characters and actors.
+  </p>
+  <p>
+    The site in its current state is simply a proof of concept that I hope to expand on in the future. Future considerations include:
+  </p>
+  <ul>
+    <li>Integrating with IMDB APIs (https://imdb-api.com/API)</li>
+    <li>Add support for user submissions and comments</li>
+    <li>Curating all the data to get more accurate test results</li>
+    <li>Adding more useful graph breakdowns</li>
+    <li>Add the anti-bechdel test (the same questions except for men) to use as a reference point as I suspect at least 95% of movies would pass that</li>
+    <li>Add support for other, more useful tests (https://projects.fivethirtyeight.com/next-bechdel/)</li>
+  </ul>
+</div>
+
+<div id="info-section-2" class="my-section">
+  <h2 class="my-h">Have a movie to add?</h2>
+  <p>
+    While there's currently no tool for submitting movies yourself (I'm working on it!), you can email me at evanjwaterman at gmail dot com
+    with the following and I'll add it to the list:
+  </p>
+  <ul>
+    <li>The movie title</li>
+    <li>Whether or not the movie passes each of the individual rules
+      <ol>
+        <li>It has at least two named women in it</li>
+        <li>Who talk to each other</li>
+        <li>About something other than a man</li>
+      </ol>
+    </li>
+    <li>Any special notes or considerations you have</li>
+  </ul>
+</div>
+
+<div id="info-section-3" class="my-section">
+  <h2 class="my-h">Interested in contributing?</h2>
+  <p>
+    The site was made nearly from scratch with Django 3. The project is open source, so if you're interested in contributing,
+    <a href="https://github.com/EWaterman/bechdel">check out the GitHub page.</a>
+  </p>
+</div>
+
+<div id="info-section-4" class="my-section">
+  <h2 class="my-h">Disclaimers & Acknowledgements</h2>
+  <p>
+    This website is in no way affiliated with Alison Bechdel. To support her directly, please
+    <a href="https://dykestowatchoutfor.com/">visit her website</a>.
+  </p>
+  <p>
+    Initial data sourced from <a href="https://bechdeltest.com/">bechdeltest.com</a> and
+    <a href="https://www.the-numbers.com/market/">the-numbers.com</a>. Gross sales figures
+    are based on movie theater ticket sales and do not factor in views via streaming services.
+  </p>
+  <p>
+    The data set used in this website only includes fictional movies (ie no documentaries).
+  </p>
+</div>
+{% endblock %}

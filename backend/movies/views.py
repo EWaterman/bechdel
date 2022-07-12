@@ -6,13 +6,14 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from rest_framework import viewsets
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from urllib.parse import urlencode
 
-from .models import MovieMetaModel, TestResultsModel
+from .models import MovieMetaModel, TestResultsModel, DEFAULT_POSTER_URI
 from .serializers import MovieDetailsSerializer, TestResultsSerializer
 from .enums import GENRES, TEST_RESULT, MOVIE_ORDERING
 
 NAVBAR_SEARCH_LIMIT = 5
-HOMEPAGE_SEARCH_LIMIT = 20
+HOMEPAGE_SEARCH_LIMIT = 24
 SEARCH_NUM_MOVIES_PER_PAGE = 12
 DEFAULT_GRAPH_DATA_COUNT = 100
 
@@ -68,9 +69,21 @@ class MovieDetailsByComplexView(ListView):
 
         # Order the results and return (don't bother serializing cause there's no real field translation)
         ascending = "" if ascendingQ is not None else "-"  # Checkbox params are only provided (to "on") if checked.
-        return (movies
-            .annotate(releaseYear=ExtractYear('releaseDate'))  # Wrap each row with a new 'releaseYear' field
-            .order_by(ascending + orderBy))
+        return movies.order_by(ascending + orderBy)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(MovieDetailsByComplexView, self).get_context_data(object_list=None, **kwargs)
+
+        # We have to manually seriaize the data
+        context[self.context_object_name] = MovieDetailsSerializer(context[self.context_object_name], many=True).data
+
+        # Add all the query params to the context so we can re-use them in the infinite scroll
+        # We gotta strip the map of params of empty values first though because urlencode doesn't like them
+        # We also remove the "page" param since we manually add it in the template/html file.
+        qparams = {k:v for k,v in self.request.GET.items() if (v != "" and k != "page")}
+        context['qparams'] = urlencode(qparams)
+
+        return context
 
 
 # Fetch a list of movie metadata by movie title. Used in the navbar search.
@@ -80,10 +93,10 @@ def movies_min_by_title_view(request):
     title = request.GET.get('title', "")
 
     # Only select the top 5 matching entries since we don't want to overflow the display
-    movies = (MovieMetaModel.objects
-        .filter(title__icontains=title)[:NAVBAR_SEARCH_LIMIT]
-        .annotate(releaseYear=ExtractYear('releaseDate'))  # Wrap each row with a new 'releaseYear' field
-        .values('id', 'title', 'releaseYear', 'image'))
+    movies = MovieMetaModel.objects.filter(title__icontains=title)[:NAVBAR_SEARCH_LIMIT]
+
+    # We have to manually seriaize the data
+    movies = MovieDetailsSerializer(movies, many=True).data
 
     html = render_to_string(
         template_name="view_wrappers/movie_list_min_wrapper.html",
@@ -95,16 +108,29 @@ def movies_min_by_title_view(request):
     return JsonResponse(data={"html_from_view": html}, safe=False)
 
 
-# Fetches the metadata of the 20 most recently released movies.
+# Fetches the metadata of the 24 most recently released movies. (24 cause it's a multiple of 12 for boostrap cols)
 # Used on the homepage. Only returns partial data.
 def movies_card_by_date_view():
+    # Ignore rows that don't have a poster or any test result data
     movies = (MovieMetaModel.objects.all()
-        .order_by('releaseDate')[:HOMEPAGE_SEARCH_LIMIT]
-        .values('id', 'title', 'image', 'bechdelResult'))
+        .filter(bechdelResult__isnull=False)
+        .exclude(image=DEFAULT_POSTER_URI)
+        .order_by('-releaseDate')[:HOMEPAGE_SEARCH_LIMIT])
+
+    # We have to manually seriaize the data
+    movies = MovieDetailsSerializer(movies, many=True).data
+
+    # Subdivide the list of movies into a list of list, with each inner list being 4 elements long.
+    # We do this as we'll be displaying them in a carousel with 4 elements per page. Returning them
+    # this way makes the logic in the template simpler, which is generally the better practice.
+    movies_chunked = []
+    elements_per_sublist = 4
+    for i in range(0, len(movies), elements_per_sublist):
+        movies_chunked.append(movies[i:i+elements_per_sublist])
 
     return render_to_string(
         template_name="view_wrappers/movie_list_card_wrapper.html",
-        context={"movie_cards": movies}
+        context={"movie_cards": movies_chunked}
     )
 
 

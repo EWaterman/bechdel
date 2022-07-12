@@ -3,15 +3,13 @@
   {% if movies_min_by_title %}
     {% for movie in movies_min_by_title %}
       <div class="movie-list-min-entry" onclick="location.href='{% url 'common:movie-details' movie.id %}';"> 
-        <img style="height: 75px" class="listed-movie-poster" src="/media/{{movie.image}}" />
-        {{ movie.title }} ({{movie.releaseYear}})
+        <img style="height: 75px" class="listed-movie-poster" src="{{movie.image}}" />
+        {{ movie.title }} ({{movie.release_year}})
       </div>
-      {% if not forloop.last %}
-        <hr>
-      {% endif %}
+      <hr>
     {% endfor %}
   {% endif %}
   <div class="movie-list-min-entry" onclick="location.href='{% url 'common:search' %}?title={{ title }}';">
-    <p>Click for more results</p>
+    <p>More results...</p>
   </div>
 </div>

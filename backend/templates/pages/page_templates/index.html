@@ -39,12 +39,12 @@
     Lists out the movies as a drop down without having to press enter. (If they DO perform a proper
     search by submitting the form, it'll link them to the advanced search page.)
     {% endcomment %}
-    <div id="movie-list-min-container">
+    <div id="movie-list-min-container" class="shadow">
         <div id="replaceable-content"></div>
     </div>
 
     {% comment %} Where the actual page content will go. {% endcomment %}
-    <div id="page-content">
+    <div id="page-content" class="container">
         {% block content %} {% endblock %}
     </div>
 

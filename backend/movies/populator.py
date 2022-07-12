@@ -22,7 +22,7 @@ def main():
         filenames = glob.glob("*.csv")
 
     for filename in filenames:
-        with open(filename) as f:
+        with open(filename, "r", encoding='utf-8') as f:
             reader = csv.reader(f)
             totalRows = 0
             totalCreated = 0

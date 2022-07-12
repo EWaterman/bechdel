@@ -2,27 +2,98 @@
 <div id="movie-details-container">
     {% comment %} The movie metadata {% endcomment %}
     {% if movie_meta %}
-        <div class="movie-meta">
-            <img style="max-height: 200px" class="movie-poster" src="{{movie_meta.image}}" />
-            <div class="movie-details">
-                <p>movie title: {{movie_meta.title}}</p>
-                <p>release date: {{movie_meta.releaseDate}}</p>
-                <p>genre: {{movie_meta.genre}}</p>
-                <p>gross: {{movie_meta.gross}}</p>
+        <div class="movie-meta row align-items-center">
+            <div class="col-md-4">
+                <img class="details-movie-poster shadow-sm" src="{{movie_meta.image}}" />
+            </div>
+            <div class="col-md-8">
+                <h1>{{movie_meta.title}}</h1>
+                <p>{{movie_meta.releaseDate}} &bull; {{movie_meta.genre}}</p>
+                <p>Total Grossing: {{movie_meta.gross_clean}}</p>
             </div>
         </div>
     {% endif %}
 
     {% comment %} The bechdel test results {% endcomment %}
-    {% if test_results %}
-        <div class="movie-bechdel">
-            <div class="bechdel-details">
-                <p>bechdel result: {{movie_meta.bechdelResult}}</p>
-                <p>Has at least two named women: {{test_results.bRule1Result}}</p>
-                <p>Who speak to each other: {{test_results.bRule2Result}}</p>
-                <p>About something other than a man: {{test_results.bRule3Result}}</p>
-                <p>notes: {{test_results.notes}}</p>
+    <div class="movie-details-section shadow-sm">
+        <div class="row align-items-center">
+            {% comment %} Checkbox section {% endcomment %}
+            <div id="movie-details-bechdel-result" class="col-md-4 text-center">
+                <h2>Bechdel Result</h2>
+                {% if movie_meta %}
+                    {% if movie_meta.bechdelResult == True %}
+                        <i class="bi bi-check-circle text-success" style="font-size: 75px"></i>
+                        <h4 class="text-success">Pass</h4>
+                    {% elif movie_meta.bechdelResult == False %}
+                        <i class="bi bi-x-circle text-danger" style="font-size: 75px"></i>
+                        <h4 class="text-danger">Fail</h4>
+                    {% else %}
+                        <i class="bi bi-question-circle" style="font-size: 75px"></i>
+                        <h4>N/A</h4>
+                    {% endif %}
+                {% else %}
+                    <i class="bi bi-question-circle" style="font-size: 75px"></i>
+                    <h4>N/A</h4>
+                {% endif %}
+            </div>
+
+            {% comment %} Individual rule breakdown {% endcomment %}
+            <div class="col-md-8">
+                <div class="d-flex align-items-center">
+                    {% if test_results %}
+                        {% if test_results.bRule1Result == True %}
+                            <i class="i-rule-result bi bi-check-circle text-success"></i>
+                        {% elif test_results.bRule1Result == False %}
+                            <i class="i-rule-result bi bi-x-circle text-danger"></i>
+                        {% else %}
+                            <i class="i-rule-result bi bi-question-circle"></i>
+                        {% endif %}
+                    {% else %}
+                        <i class="i-rule-result bi bi-question-circle"></i>
+                    {% endif %}
+                    <div class="test-rule-text">Has at least two named women</div>
+                </div>
+                <div class="d-flex align-items-center">
+                    {% if test_results %}
+                        {% if test_results.bRule2Result == True %}
+                            <i class="i-rule-result bi bi-check-circle text-success"></i>
+                        {% elif test_results.bRule2Result == False %}
+                            <i class="i-rule-result bi bi-x-circle text-danger"></i>
+                        {% else %}
+                            <i class="i-rule-result bi bi-question-circle"></i>
+                        {% endif %}
+                    {% else %}
+                        <i class="i-rule-result bi bi-question-circle"></i>
+                    {% endif %}
+                    <div class="test-rule-text">Who speak to each other</div>
+                </div>
+                <div class="d-flex align-items-center">
+                    {% if test_results %}
+                        {% if test_results.bRule3Result == True %}
+                            <i class="i-rule-result bi bi-check-circle text-success"></i>
+                        {% elif test_results.bRule3Result == False %}
+                            <i class="i-rule-result bi bi-x-circle text-danger"></i>
+                        {% else %}
+                            <i class="i-rule-result bi bi-question-circle"></i>
+                        {% endif %}
+                    {% else %}
+                        <i class="i-rule-result bi bi-question-circle"></i>
+                    {% endif %}
+                    <div class="test-rule-text">About something other than a man</div>
+                </div>
             </div>
         </div>
-    {% endif %}
+        
+        {% comment %} Special Notes {% endcomment %}
+        {% if test_results.notes is not None %} 
+            <div id="movie-details-bechdel-notes" class="row">
+                <div class="col-md-4 text-center">
+                    <h3>Special Notes:</h3>
+                </div>
+                <div class="col-md-8">
+                    <p>{{test_results.notes}}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </div>
