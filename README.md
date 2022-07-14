@@ -15,6 +15,10 @@ Initially cloned from the [Django React Boilerplate](https://github.com/vintasof
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+https://devcenter.heroku.com/articles/django-app-configuration
+- Procfile is used to declare processes/entrypoints to the app (such as Gunicorn which is a (unix ONLY) webserver that heroku uses)
+- app.json is used by the heroku button to set up my settings when deploying
+
 ### Populating the data
 I've added a management script to populate movie metadata from CSV files.
 
