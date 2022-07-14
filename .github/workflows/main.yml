@@ -59,8 +59,6 @@ jobs:
           pip install --user -r requirements.txt
           pip install --user -r dev-requirements.txt
       - run: npm install
-      - run: npm run build
-      - run: npm run lint
       - name: Generate secret key
         run: echo '::set-output name=SECRET_KEY::`python -c "import uuid; print(uuid.uuid4().hex + uuid.uuid4().hex)"`'
         id: secret_id_generator

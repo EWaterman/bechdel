@@ -1,1 +1,1 @@
-web: gunicorn bechdeltester.wsgi --log-file -
+web: gunicorn bechdel.wsgi --log-file -
