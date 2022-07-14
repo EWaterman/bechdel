@@ -21,7 +21,7 @@ ADMINS = (("Admin", "evanjwaterman@gmail.com"),)
 
 AUTH_USER_MODEL = "users.User"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bechdeltester.herokuapp.com"]
 
 DATABASES = {
     "default": config("DATABASE_URL", cast=db_url),

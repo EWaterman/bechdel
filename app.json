@@ -3,7 +3,8 @@
   "description": "Bechdel Heroku app.",
   "env": {
     "ALLOWED_HOSTS": {
-      "description": "Django ALLOWED_HOSTS setting, e.g.: .appname.herokuapp.com"
+      "description": "Django ALLOWED_HOSTS setting, e.g.: .appname.herokuapp.com",
+      "value": "bechdeltester.herokuapp.com"
     },
     "DISABLE_COLLECTSTATIC": {
       "description": "Disables Heroku collectstatic",
