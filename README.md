@@ -8,8 +8,12 @@ WebApp that shows whether or not a movie passes the [Bechdel Test](https://en.wi
 2. Who talk to each other
 3. About something besides a man
 
-Initially cloned from the [Django React Boilerplate](https://github.com/vintasoftware/django-react-boilerplate) which was developed by [Vinta Software](https://www.vinta.com.br/).
+Initially cloned from the [Django React Boilerplate](https://github.com/vintasoftware/django-react-boilerplate) which was developed by [Vinta Software](https://www.vinta.com.br/). All the react stuff is removed though...
 
+
+### Deploys
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### Populating the data
 I've added a management script to populate movie metadata from CSV files.
