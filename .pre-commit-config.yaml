@@ -46,10 +46,3 @@ repos:
     language: system
     always_run: true
     pass_filenames: false
-  - id: prospector
-    name: prospector-local
-    entry: prospector --messages-only
-    language: python
-    types: [python]
-    exclude: .+/(settings|migrations)/.+
-    pass_filenames: true

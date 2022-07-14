@@ -7,11 +7,7 @@
 asgiref==3.5.2
     # via django
 astroid==2.11.5
-    # via
-    #   pylint
-    #   pylint-celery
-    #   pylint-flask
-    #   requirements-detector
+    # via pylint
 bandit==1.7.4
     # via -r dev-requirements.in
 black==22.3.0
@@ -41,18 +37,12 @@ django==3.2.13
     # via
     #   -r dev-requirements.in
     #   model-bakery
-dodgy==0.2.1
-    # via prospector
 dparse==0.5.1
     # via safety
 filelock==3.7.0
     # via virtualenv
 flake8==3.8.4
-    # via
-    #   -r dev-requirements.in
-    #   flake8-polyfill
-flake8-polyfill==1.0.2
-    # via pep8-naming
+    # via -r dev-requirements.in
 gitdb==4.0.9
     # via gitpython
 gitpython==3.1.27
@@ -70,7 +60,6 @@ lazy-object-proxy==1.7.1
 mccabe==0.6.1
     # via
     #   flake8
-    #   prospector
     #   pylint
 model-bakery==1.5.0
     # via -r dev-requirements.in
@@ -86,8 +75,6 @@ pathspec==0.9.0
     # via black
 pbr==5.9.0
     # via stevedore
-pep8-naming==0.10.0
-    # via prospector
 platformdirs==2.5.2
     # via
     #   black
@@ -95,39 +82,18 @@ platformdirs==2.5.2
     #   virtualenv
 pre-commit==2.19.0
     # via -r dev-requirements.in
-prospector[with_vulture]==1.7.7
-    # via -r dev-requirements.in
 pycodestyle==2.6.0
-    # via
-    #   flake8
-    #   prospector
-pydocstyle==6.1.1
-    # via prospector
+    # via flake8
 pyflakes==2.2.0
-    # via
-    #   flake8
-    #   prospector
+    # via flake8
 pylint==2.13.9
     # via
-    #   prospector
-    #   pylint-celery
     #   pylint-django
-    #   pylint-flask
     #   pylint-plugin-utils
-pylint-celery==0.3
-    # via prospector
 pylint-django==2.5.3
-    # via
-    #   -r dev-requirements.in
-    #   prospector
-pylint-flask==0.6
-    # via prospector
+    # via -r dev-requirements.in
 pylint-plugin-utils==0.7
-    # via
-    #   prospector
-    #   pylint-celery
-    #   pylint-django
-    #   pylint-flask
+    # via pylint-django
 pyparsing==3.0.9
     # via packaging
 pytz==2022.1
@@ -137,21 +103,14 @@ pyyaml==6.0
     #   bandit
     #   dparse
     #   pre-commit
-    #   prospector
 requests==2.27.1
     # via safety
-requirements-detector==0.7
-    # via prospector
 safety==1.10.3
     # via -r dev-requirements.in
-setoptconf-tmp==0.3.1
-    # via prospector
 six==1.16.0
     # via virtualenv
 smmap==5.0.0
     # via gitdb
-snowballstemmer==2.2.0
-    # via pydocstyle
 sqlparse==0.4.2
     # via django
 stevedore==3.5.0
@@ -160,8 +119,6 @@ toml==0.10.2
     # via
     #   dparse
     #   pre-commit
-    #   prospector
-    #   vulture
 tomli==2.0.1
     # via
     #   black
@@ -170,8 +127,6 @@ urllib3==1.26.9
     # via requests
 virtualenv==20.14.1
     # via pre-commit
-vulture==2.4
-    # via prospector
 wrapt==1.14.1
     # via astroid
 
