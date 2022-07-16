@@ -29,8 +29,8 @@ urlpatterns = [
     path("jsreverse/", django_js_reverse.views.urls_js, name="js_reverse"),
 
     # Dev endpoints for all my model views. The router ones come for free with Django rest framework.
-    # These should be hidden from the public in production.
-    # TODO: Hide these from the public in prod. Maybe it happens automatically idk.
+    # These should ideally be hidden from the public in production (and the Django ones are) but
+    # my apis are get only so it's fine.
     path("api/", include(router.urls), name="api"),
     path("api/custom/movies/", include("movies.urls"), name="movies"),
 ]

@@ -5,7 +5,9 @@ from django.core.management.base import BaseCommand
 from movies.models import MovieMetaModel
 from movies.enums import GENRES_INV, MONTH_NAMES
 
-dataFolder = "movies/populatordata/"  # Path is relative to manage.py
+# Because Heroku commands are run from the root folder, we need to specify the full
+# path. This also means this command must be run from the root package.
+dataFolder = "backend/movies/populatordata/"
 
 def strToBool(str):
     if str == "y":
