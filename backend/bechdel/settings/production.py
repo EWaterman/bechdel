@@ -43,6 +43,8 @@ X_FRAME_OPTIONS = "DENY"
 # Webpack
 WEBPACK_LOADER["DEFAULT"]["CACHE"] = True
 
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Whitenoise
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 

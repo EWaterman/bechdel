@@ -38,4 +38,5 @@ urlpatterns = [
 # Needed to manually serve media files (files under "mediafiles" folder) during local testing.
 # Static files (which will be under "staticfiles" in prod) are handled automatically.
 if settings.DEBUG:
+    # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

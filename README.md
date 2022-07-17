@@ -1,5 +1,7 @@
 # Bechdel Tester (Unofficial)
 
+https://bechdeltester.herokuapp.com/
+
 Created by Evan Waterman
 
 WebApp that shows whether or not a movie passes the [Bechdel Test](https://en.wikipedia.org/wiki/Bechdel_test). Mainly a movie passes iff:
@@ -19,11 +21,42 @@ https://devcenter.heroku.com/articles/django-app-configuration
 - Procfile is used to declare processes/entrypoints to the app (such as Gunicorn which is a (unix ONLY) webserver that heroku uses)
 - app.json is used by the heroku button to set up my settings when deploying
 
+
 ### Populating the data
 I've added a management script to populate movie metadata from CSV files.
 
-1. cd to backend\
-2. python .\manage.py populator --year 2021
+From the root directory run:
+
+python .\backend\manage.py populator --year 2021
+
+And to run it on prod:
+
+heroku run python backend/manage.py populator --year 2021
+
+
+
+
+### Notes on Images
+Because Heroku doesn't support storing mediafiles (like images) in the free tier, we have to resort to either serving them as static files (with whitenoise) or by hosting the media files via 3rd party CDN. (This is because the dynos go to sleep when not in use, losing all dynamic data)
+- https://stackoverflow.com/questions/41474150/using-heroku-for-django-media-files
+- https://stackoverflow.com/questions/59114717/imagesmedia-not-displaying-on-django-heroku-server
+
+#### Option 1 - static files
+
+http://whitenoise.evans.io/en/stable/django.html
+
+Instead of uploading the images to \mediafiles\posters (which happens automatically when I create new movie entries via the admin page) I need to manually upload them to frontend\assets\posters, then add that filename to the populatordata csv files. That way they'll get collected to the \staticfiles\ dir where they'll be served.
+
+It means the process is very manual, but it's the best thing I got. On the plus side it means I don't need to manually add new data on prod. I just run the script and it works.
+
+Generating the files should be handled automatically when deploying to Heroku, but on local testing you need to run:
+
+python ./manage.py collectstatic
+
+#### Option 2 - CDN
+
+Use Cloudinary (which is free) - https://stackoverflow.com/questions/54041196/how-to-deploy-media-files-in-django-heroku
+
 
 
 ### TODO:
@@ -34,7 +67,6 @@ I've added a management script to populate movie metadata from CSV files.
 
 
 ### Future Considerations:
-- add a "rating" field (G, PG...)
 - pull IMDB/Rotten Tomato metadata for ratings, posters, and stuff
 - Support limiting the graphs (ie fetch top 10, 100, all movies of each year...)
 -- To do this it'd be better to fetch all the data ordered by gross, then loop through, grouping it manually after. That way we only have 1 trip to the db.

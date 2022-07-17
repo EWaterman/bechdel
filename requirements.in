@@ -18,3 +18,5 @@ ipython
 sentry-sdk
 pillow
 plotly
+django-cloudinary-storage
+cloudinary

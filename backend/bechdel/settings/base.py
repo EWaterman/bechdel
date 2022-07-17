@@ -38,10 +38,18 @@ INSTALLED_APPS = [
     "webpack_loader",
     "import_export",
     "rest_framework",
+    'cloudinary_storage',
+    'cloudinary',
     "common",
     "users",
     "movies",
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'hdb1dkkxg',
+    'API_KEY': '776217191268328',
+    'API_SECRET': 'JpQ5PYxr3JzvVlNXs53AZq7oYpQ'
+}
 
 MIDDLEWARE = [
     "debreach.middleware.RandomCommentMiddleware",

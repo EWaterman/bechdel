@@ -13,9 +13,18 @@ backcall==0.2.0
 brotlipy==0.7.0
     # via -r requirements.in
 certifi==2022.5.18.1
-    # via sentry-sdk
+    # via
+    #   cloudinary
+    #   requests
+    #   sentry-sdk
 cffi==1.15.0
     # via brotlipy
+charset-normalizer==2.1.0
+    # via requests
+cloudinary==1.29.0
+    # via
+    #   -r requirements.in
+    #   django-cloudinary-storage
 colorama==0.4.4
     # via ipython
 decorator==5.1.1
@@ -35,6 +44,8 @@ django==3.2.13
     #   django-log-request-id
     #   django-model-utils
     #   djangorestframework
+django-cloudinary-storage==0.3.0
+    # via -r requirements.in
 django-debreach==2.1.0
     # via -r requirements.in
 django-filter==21.1
@@ -57,6 +68,8 @@ executing==0.8.3
     # via stack-data
 gunicorn==20.1.0
     # via -r requirements.in
+idna==3.3
+    # via requests
 ipython==8.4.0
     # via -r requirements.in
 jedi==0.18.1
@@ -97,10 +110,14 @@ pytz==2022.1
     #   djangorestframework
 pyyaml==6.0
     # via tablib
+requests==2.28.1
+    # via django-cloudinary-storage
 sentry-sdk==1.5.12
     # via -r requirements.in
 six==1.16.0
-    # via asttokens
+    # via
+    #   asttokens
+    #   cloudinary
 sqlparse==0.4.2
     # via django
 stack-data==0.2.0
@@ -114,7 +131,10 @@ traitlets==5.2.1.post0
     #   ipython
     #   matplotlib-inline
 urllib3==1.26.9
-    # via sentry-sdk
+    # via
+    #   cloudinary
+    #   requests
+    #   sentry-sdk
 wcwidth==0.2.5
     # via prompt-toolkit
 whitenoise==6.1.0
