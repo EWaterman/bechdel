@@ -1,7 +1,6 @@
 {% comment %} https://getbootstrap.com/docs/5.0/components/card/ {% endcomment %}
 {% comment %} https://getbootstrap.com/docs/5.0/components/carousel/ {% endcomment %}
 {% comment %} https://stackoverflow.com/questions/35993300/horizontally-scrollable-list-of-cards-in-bootstrap/42117768#42117768 {% endcomment %}
-{% load static %}
 {% if movie_cards %}
   <div id="movie-card-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -12,7 +11,7 @@
               <div class="col-md-3">
                 <div class="card mb-4 {% if movie.bechdelResult == True %}card-pass{% elif movie.bechdelResult == False %}card-fail{% endif %}">
                   <div class="card-img-top">
-                    <img src="{% static movie.image %}"/>
+                    <img src="{{ movie.image }}"/>
                   </div>
                   <div class="card-body">
                     {% if movie.bechdelResult == True %}

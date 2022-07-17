@@ -55,8 +55,11 @@ python ./manage.py collectstatic
 
 #### Option 2 - CDN
 
-Use Cloudinary (which is free) - https://stackoverflow.com/questions/54041196/how-to-deploy-media-files-in-django-heroku
+Use Cloudinary (which is free)
+- https://pypi.org/project/django-cloudinary-storage/
+- https://stackoverflow.com/questions/54041196/how-to-deploy-media-files-in-django-heroku
 
+Upload the posters to the media library, which is accessible by clicking the cloudinary plugin on the app heroku page.
 
 
 ### TODO:

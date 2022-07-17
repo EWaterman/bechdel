@@ -38,17 +38,18 @@ INSTALLED_APPS = [
     "webpack_loader",
     "import_export",
     "rest_framework",
-    'cloudinary_storage',
+    'cloudinary_storage',  # This comes after django.contrib.staticfiles because we only want it for media files
     'cloudinary',
     "common",
     "users",
     "movies",
 ]
 
+CLOUDINARY_URL = config("CLOUDINARY_URL")
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'hdb1dkkxg',
-    'API_KEY': '776217191268328',
-    'API_SECRET': 'JpQ5PYxr3JzvVlNXs53AZq7oYpQ'
+    'CLOUD_NAME': config("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': config("CLOUDINARY_API_KEY"),
+    'API_SECRET': config("CLOUDINARY_API_SECRET")
 }
 
 MIDDLEWARE = [
