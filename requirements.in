@@ -20,3 +20,4 @@ pillow
 plotly
 django-cloudinary-storage
 cloudinary
+pandas

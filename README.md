@@ -53,13 +53,13 @@ Generating the files should be handled automatically when deploying to Heroku, b
 
 python ./manage.py collectstatic
 
-#### Option 2 - CDN
+#### Option 2 - CDN  (this is the one I went with)
 
 Use Cloudinary (which is free)
 - https://pypi.org/project/django-cloudinary-storage/
 - https://stackoverflow.com/questions/54041196/how-to-deploy-media-files-in-django-heroku
 
-Upload the posters to the media library, which is accessible by clicking the cloudinary plugin on the app heroku page.
+Now they're auto uploaded to the cloudinary media library when I add a new movie via the dhango admin API page, which is accessible by clicking the cloudinary plugin on the app heroku page.
 
 
 ### TODO:
