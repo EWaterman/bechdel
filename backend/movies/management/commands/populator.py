@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 from django.core.management.base import BaseCommand
-from movies.models import MovieMetaModel
+from movies.models import MovieMetaModel, TestResultsModel
 from movies.enums import GENRES_INV, MONTH_NAMES
 
 # Because Heroku commands are run from the root folder, we need to specify the full
@@ -34,6 +34,10 @@ def convertImage(filename):
     return "posters/default.jpg" if pd.isna(filename) else "posters/" + filename + ".jpg"
 
 
+def convertNullableStrCol(col):
+    return None if pd.isna(col) else col
+
+
 # Run with:  python \backend\manage.py populator --year 2021 --force True
 # https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/
 class Command(BaseCommand):
@@ -63,6 +67,7 @@ class Command(BaseCommand):
                 MovieMetaModel.objects.filter(releaseDate__year=sheetName).delete()
 
             for _, row in df.iterrows():
+                # MOVIE META DATA
                 title = row['Movie Title']
                 releaseDate = row['Release Date'] #convertDate(row['Release Date'])
                 genre = GENRES_INV.get(row['Genre'])
@@ -70,9 +75,21 @@ class Command(BaseCommand):
                 bechdelResult = strToBool(row['Does It Pass?'])
                 image = convertImage(row['File Name'])
 
+                # TEST RESULT DATA
+                # If the movie passes, it must pass all the individual rules
+                if bechdelResult:
+                    bRule1Result = True
+                    bRule2Result = True
+                    bRule3Result = True
+                else:
+                    bRule1Result = strToBool(row['Rule1'])
+                    bRule2Result = strToBool(row['Rule2'])
+                    bRule3Result = strToBool(row['Rule3'])
+                notes = convertNullableStrCol(row['Notes'])
+
                 # If we're forcing the update
                 if (shouldForce):
-                    _, created = MovieMetaModel.objects.update_or_create(
+                    movie, created = MovieMetaModel.objects.update_or_create(
                         title=title,
                         defaults={
                             'releaseDate': releaseDate,
@@ -82,6 +99,15 @@ class Command(BaseCommand):
                             'bechdelResult': bechdelResult
                         },
                     )
+                    TestResultsModel.objects.update_or_create(
+                        movieId=movie,
+                        defaults={
+                            'bRule1Result': bRule1Result,
+                            'bRule2Result': bRule2Result,
+                            'bRule3Result': bRule3Result,
+                            'notes': notes
+                        },
+                    )
                     if created:
                         totalCreated += 1
                     else:
@@ -89,13 +115,20 @@ class Command(BaseCommand):
 
                 # Else we only create if the row DNE in the DB
                 else:
-                    _, created = MovieMetaModel.objects.get_or_create(
+                    movie, created = MovieMetaModel.objects.get_or_create(
                             title=title,
                             releaseDate=releaseDate,  
                             genre=genre,
                             gross=gross,
                             image=image,
                             bechdelResult=bechdelResult
+                    )
+                    TestResultsModel.objects.get_or_create(
+                            movieId=movie,
+                            bRule1Result=bRule1Result,  
+                            bRule2Result=bRule2Result,
+                            bRule3Result=bRule3Result,
+                            notes=notes
                     )
                     if created:
                         totalCreated += 1
