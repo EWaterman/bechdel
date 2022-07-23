@@ -13,12 +13,6 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
-STATIC_ROOT = base_dir_join("staticfiles")
-STATIC_URL = "/static/"
-
-MEDIA_ROOT = base_dir_join("mediafiles")
-MEDIA_URL = "/media/"
-
 SERVER_EMAIL = "evanjwaterman@gmail.com"
 
 EMAIL_HOST = "smtp.sendgrid.net"

@@ -2,6 +2,9 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 # All movie metadata models/tables
+
+# Remeber images go under the /media/ folder (/mediafiles/ locally).
+# The frontend/assets/posters stuff is just for running the populator so ignore it here.
 DEFAULT_POSTER_URI = "posters/default.jpg"
 
 # Metadata about the movie + the individual test results (which are in the same table because they're always accessed together)

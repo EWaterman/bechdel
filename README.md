@@ -23,17 +23,15 @@ https://devcenter.heroku.com/articles/django-app-configuration
 
 
 ### Populating the data
-I've added a management script to populate movie metadata from CSV files.
+I've added a management script to populate movie metadata from the Excel file.
 
 From the root directory run:
 
-python .\backend\manage.py populator --year 2021
+python .\backend\manage.py populator --year 2021 --force True
 
 And to run it on prod:
 
-heroku run python backend/manage.py populator --year 2021
-
-
+heroku run python backend/manage.py populator --year 2021 --force True
 
 
 ### Notes on Images
@@ -41,17 +39,19 @@ Because Heroku doesn't support storing mediafiles (like images) in the free tier
 - https://stackoverflow.com/questions/41474150/using-heroku-for-django-media-files
 - https://stackoverflow.com/questions/59114717/imagesmedia-not-displaying-on-django-heroku-server
 
-#### Option 1 - static files
+My round about is to associate the images and the movies in the populator script by defining them in the Excel file. It means the process is very manual, but it's the best thing I got. On the plus side it means I don't need to manually add new data on prod. I just run the script and it works.
+
+#### Option 1 - static files  (not doable)
 
 http://whitenoise.evans.io/en/stable/django.html
 
-Instead of uploading the images to \mediafiles\posters (which happens automatically when I create new movie entries via the admin page) I need to manually upload them to frontend\assets\posters, then add that filename to the populatordata csv files. That way they'll get collected to the \staticfiles\ dir where they'll be served.
-
-It means the process is very manual, but it's the best thing I got. On the plus side it means I don't need to manually add new data on prod. I just run the script and it works.
+Instead of uploading the images to \mediafiles\posters (which happens automatically when I create new movie entries via the admin page) I need to manually upload them to frontend\assets\posters, That way they'll get collected to the \staticfiles\ dir where they'll be served.
 
 Generating the files should be handled automatically when deploying to Heroku, but on local testing you need to run:
 
-python ./manage.py collectstatic
+python backend/manage.py collectstatic
+
+Unfortunately this solution doesn't work as models with an image field will always look at the media folder for the images, and I can't set the media folder to be the static folder as they must be different. This means I cannot serve the images associated with a model via static files.
 
 #### Option 2 - CDN  (this is the one I went with)
 
@@ -60,6 +60,8 @@ Use Cloudinary (which is free)
 - https://stackoverflow.com/questions/54041196/how-to-deploy-media-files-in-django-heroku
 
 Now they're auto uploaded to the cloudinary media library when I add a new movie via the dhango admin API page, which is accessible by clicking the cloudinary plugin on the app heroku page.
+
+Unfortunately movies created by the populator script don't post the images to the CDN since it's just a string URL link, which means I need to upload them to the CDN myself manually.
 
 
 ### TODO:

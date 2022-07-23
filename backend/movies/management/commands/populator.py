@@ -58,9 +58,6 @@ class Command(BaseCommand):
             totalCreated = 0
             totalModified = 0
 
-            # A quirk of pandas. We replace all "NaN" (ie empty) elements with python None
-            # df = df.replace({np.nan:None})
-
             # Truncate the data for the year (sheetName==year)
             if shouldTruncate:
                 MovieMetaModel.objects.filter(releaseDate__year=sheetName).delete()

@@ -23,6 +23,12 @@ AUTH_USER_MODEL = "users.User"
 
 ALLOWED_HOSTS = []
 
+STATIC_ROOT = base_dir_join("staticfiles")
+STATIC_URL = "/static/"
+
+MEDIA_ROOT = base_dir_join('mediafiles')
+MEDIA_URL = '/media/'
+
 DATABASES = {
     "default": config("DATABASE_URL", cast=db_url),
 }
